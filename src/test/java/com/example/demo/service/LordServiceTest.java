@@ -57,7 +57,6 @@ class LordServiceTest {
     @Test
     void savedLord(){
         Mockito.lenient().when(lordRepository.save(lord)).thenReturn(lord);
-
         Lord testLord = lordService.save(lord);
         assertEquals("Isaac Clarke", testLord.getName());
         Mockito.verify(lordRepository, Mockito.times(1)).save(testLord);
