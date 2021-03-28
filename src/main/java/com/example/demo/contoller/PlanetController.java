@@ -16,7 +16,7 @@ public class PlanetController {
         return planetService.save(planet);
     }
 
-    @DeleteMapping("/destroy/{idPlanet}")
+    @DeleteMapping("/{idPlanet}")
     public void destroyPlanet(@PathVariable(value = "idPlanet") Long id){ planetService.destroy(id); }
 
 

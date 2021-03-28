@@ -34,7 +34,7 @@ class PlanetServiceTest {
 
     @Test
     void save() {
-        Mockito.lenient().when(planetRepository.save(planet)).thenReturn(planet);
+        Mockito.when(planetRepository.save(planet)).thenReturn(planet);
         Planet testPlanet = planetService.save(planet);
         assertEquals("Titan", testPlanet.getName());
         Mockito.verify(planetRepository, Mockito.times(1)).save(testPlanet);

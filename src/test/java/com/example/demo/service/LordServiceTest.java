@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Lord;
+import com.example.demo.entity.Planet;
 import com.example.demo.repository.LordRepository;
 import com.example.demo.repository.PlanetRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +36,7 @@ class LordServiceTest {
 
    private Lord lord;
 
-  // private Planet planet;
+  private Planet planet;
 
     @BeforeEach
     void setUp(){
@@ -38,12 +45,12 @@ class LordServiceTest {
         lord.setAge(20);
         lord.setId(10);
         lord.setName("Isaac Clarke");
+        lord.setListPlanets(new ArrayList<>());
 
-        /*
         planet = new Planet();
         planet.setId(10);
         planet.setName("Titan");
-         */
+
 
     }
 
@@ -55,31 +62,40 @@ class LordServiceTest {
         Mockito.verify(lordRepository, Mockito.times(1)).save(testLord);
     }
 
- /*
+
     @Test
-    void ruleToPlanet() {
-        Mockito.lenient().when(lordRepository.save(lord)).thenReturn(lord);
-        Lord testLord = lordRepository.save(lord);
+    void ruleToPlanet_AddingPlanetToLord() {
+        Mockito.when(lordRepository.save(lord)).thenReturn(lord);
+        Mockito.when(planetRepository.save(planet)).thenReturn(planet);
 
-        Mockito.lenient().when(planetRepository.save(planet)).thenReturn(planet);
-        Planet testPlanet = planetRepository.save(planet);
+        Mockito.when(planetRepository.getById(planet.getId())).thenReturn(planet);
+        Mockito.when(lordRepository.getById(lord.getId())).thenReturn(lord);
 
-
-        Mockito.lenient().when(lordService.ruleToPlanet(testPlanet.getId(), testLord.getId())).thenReturn(true);
-        assertTrue(lordService.ruleToPlanet(testPlanet.getId(), testLord.getId()));
-        Mockito.verify(lordService, Mockito.times(1)).ruleToPlanet(testPlanet.getId(),testLord.getId());
-
-      //  lordService.ruleToPlanet(testPlanet.getId(), testLord.getId());
-      //  assertEquals("Isaac Clarke", testPlanet.getLordOfPlanet().getName());
-    }
-
-    /*
-    @Test
-    void getYoungestLords() {
+        lordService.ruleToPlanet(planet.getId(), lord.getId());
+        assertEquals("Isaac Clarke", planet.getLordOfPlanet().getName());
+        
 
     }
 
- */
+    @Test
+    void ruleToPlanet_NotAddingPlanetToLord() {
+        Lord lWithPlanet = new Lord();
+        lWithPlanet.setName("Jojk");
+        lWithPlanet.setAge(152);
+
+        Planet pWithLord = new Planet();
+        pWithLord.setName("Earth");
+        pWithLord.setLordOfPlanet(lWithPlanet);
+        lWithPlanet.setListPlanets(Collections.singletonList(pWithLord));
+
+        Mockito.when(planetRepository.getById(pWithLord.getId())).thenReturn(pWithLord);
+        RuntimeException ex = assertThrows(RuntimeException.class,()->lordService.ruleToPlanet(pWithLord.getId(), lWithPlanet.getId()));
+        assertEquals("У этой планеты уже есть хозяин!", ex.getMessage());
+
+    }
+
+
+
 }
 
 

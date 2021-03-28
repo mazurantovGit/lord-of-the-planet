@@ -75,25 +75,7 @@ class LordControllerTest {
         return lord;
     }
 
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    /*
-    @Test
-    void ruleToPlanet() throws Exception {
-       mvc.perform(
-               put("/lord/rule")
-               .param("idPlanet", "1")
-               .param("idLord", "10"))
-               .andExpect(status().isOk());
-
-    }
-     */
 
 
 }
