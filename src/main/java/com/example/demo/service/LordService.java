@@ -18,6 +18,10 @@ public class LordService {
         return lordRepository.save(lord);
     }
 
+    public List<Lord> getAllLords(){
+        return lordRepository.findAll();
+    }
+
     public List<Lord> getLordWithoutPlanet(){
         return lordRepository.getAllByListPlanetsIsNull();
     }

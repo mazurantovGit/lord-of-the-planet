@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Повелители</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <span id="size" th:text="${'Добавить повелителя, всего повелителей ' + lords.size()}"/>
+    <br>
+    <form th:action="@{/lords/add}"
+          th:object="${lord}" method="post" class="form-horizontal">
+
+        <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input th:field="*{name}" placeholder="Имя (*)" class="form-control"/>
+        </div>
+
+        <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input th:field="*{age}" placeholder="Возраст (*)" class="form-control"/>
+        </div>
+
+        <div style="margin-top: 10px" class="form-group">
+            <div class="col-sm-6 controls">
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover">
+        <tr>
+            <th style="margin-top: 10px">Фильтр: </th>
+            <th>
+                <form action="#" th:action="@{'lords/lonelylords'}" th:method="get" >
+                    <div style="margin-top: 10px" class="form-group">
+                        <button type="submit" class="btn btn-primary">Без планет</button>
+                    </div>
+                </form>
+            </th>
+            <th>
+                <form action="#" th:action="@{'lords/youngestlords'}" th:method="get" >
+                    <div style="margin-top: 10px" class="form-group">
+                        <button type="submit" class="btn btn-primary">Самые молодые</button>
+                    </div>
+                </form>
+            </th>
+        </tr>
+    </table>
+    <br>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Имя</th>
+            <th>Возраст</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lord : ${lords}">
+            <td th:text="${lord.id}"/>
+            <td th:text="${lord.name}"/>
+            <td th:text="${lord.age}"/>
+            <td>
+                <form  th:action="@{'lords/rule/{lordId}' (lordId=${lord.id})}" method="post">
+                    <select class="form-control" id="planet" name="planet">
+                        <option value="">Свободные планеты</option>
+                        <option th:each="planet : ${planets}"
+                                th:value="${planet.id}"
+                                th:text="${planet.name}">
+                        </option>
+                    </select>
+                    <button type="submit">Захватить планету</button>
+                </form>
+            </td>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.example.demo.contoller;
 
 import com.example.demo.entity.Lord;
 import com.example.demo.service.LordService;
+import com.example.demo.service.PlanetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

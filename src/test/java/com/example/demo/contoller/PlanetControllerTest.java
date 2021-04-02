@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class PlanetControllerTest {
@@ -43,7 +44,7 @@ class PlanetControllerTest {
 
     @Test
     void destroyPlanet() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.delete("/planet/destroy/{idPlanet}", 1) )
+        mvc.perform(MockMvcRequestBuilders.delete("/planet/{idPlanet}", 1) )
                 .andExpect(status().isOk());
     }
 }
