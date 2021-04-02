@@ -70,4 +70,9 @@ public class PlanetsPageTest {
         assertNotEquals(trListAfter.size(), trListBefore.size());
     }
 
+    @After
+    public void end(){
+        driver.close();
+    }
+
 }
