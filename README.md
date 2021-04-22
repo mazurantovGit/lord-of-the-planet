@@ -1,9 +1,4 @@
 # Lord-of-the-Planets
-Страничка Повелителей:
-![image](https://user-images.githubusercontent.com/43936614/113427684-2c49f800-93de-11eb-8829-f0bfc6dc7326.png)
-
-Страничка Планет:
-![image](https://user-images.githubusercontent.com/43936614/113427762-4b488a00-93de-11eb-8a97-1ea59f92f529.png)
 
 Тестовое задание:
 3141 год.
